@@ -1,0 +1,11 @@
+import java.math.*;
+public class Solution {
+    public String solve(int A) {
+        BigInteger B=BigInteger.ONE;
+        for(int i=2;i<=A;i++){
+            B=B.multiply(BigInteger.valueOf(i));
+        }
+        String C=B.toString();
+        return C;
+    }
+}
