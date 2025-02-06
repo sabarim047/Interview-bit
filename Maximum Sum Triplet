@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Solution {
+    public int solve(ArrayList<Integer> A) {
+        int n = A.size();
+        if (n < 3) return 0;
+        int maxSum = 0;
+        TreeSet<Integer> leftSet = new TreeSet<>();
+        int[] rightMax = new int[n];
+        rightMax[n - 1] = A.get(n - 1);
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(rightMax[i + 1], A.get(i));
+        }
+        for (int j = 1; j < n - 1; j++) {
+            leftSet.add(A.get(j - 1));
+            Integer bestLeft = leftSet.lower(A.get(j));
+            int bestRight = rightMax[j + 1];
+
+            if (bestLeft != null && A.get(j) < bestRight) {
+                maxSum = Math.max(maxSum, bestLeft + A.get(j) + bestRight);
+            }
+        }
+
+        return maxSum;
+    }
+}
