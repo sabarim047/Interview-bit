@@ -1,0 +1,25 @@
+public class Solution {
+    public int solve(ArrayList<Integer> A, int B) {
+        int s = 0;
+        int i = 0;
+        while(i<A.size()){
+            int position = -1;
+        for (int j = Math.min(A.size() - 1, i + B - 1); j >= Math.max(0, i - B + 1); j--) {
+
+            if(A.get(j)==1){
+                position = j;
+                break;
+            }
+        }
+        if(position == -1){
+            return -1;
+        }
+        s++;
+        i=position+B;
+        
+    }
+    return s;
+    
+    }
+    
+}
