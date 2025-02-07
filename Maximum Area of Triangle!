@@ -1,0 +1,83 @@
+public class Solution {
+    public int solve(ArrayList<String> A) {
+        
+        
+        int row = A.size();
+        int col = A.get(0).length();
+        
+        int arr[][] = new int[row][col];
+        
+        for(int i=0; i<row; i++){
+            for(int j=0; j< col; j++){
+                
+                arr[i][j] = getNumericValueForRGB(A.get(i).charAt(j));
+            }
+        }
+        
+        
+        int[] left = new int[3];
+        int[] right = new int[3];
+        int[][] top = new int[3][col];
+        int[][] bottom = new int[3][col];
+        
+        for(int i=0; i<3;i++){
+            left[i] = 100;
+            right[i] = -1;
+            for(int j=0; j<col; j++){
+                top[i][j] = 100;
+                bottom[i][j] = -1;
+            }
+        }
+        
+        for(int i=0; i<row; i++){
+            for(int j=0; j< col; j++){
+            left[arr[i][j]] =  Math.min(left[arr[i][j]],j);
+            right[arr[i][j]] = Math.max(right[arr[i][j]], j);
+            }
+        }
+        
+        for(int i=0; i<col; i++){
+            for(int j=0; j< row; j++){
+            top[arr[j][i]][i] =  Math.min(top[arr[j][i]][i],j);
+            bottom[arr[j][i]][i] = Math.max(bottom[arr[j][i]][i], j);
+            }
+        }
+        
+        
+        
+        
+        
+        return calculateMaxArea(left, right, top, bottom, col, row);
+        
+    }
+    
+    private int getNumericValueForRGB(char c){
+        if(c == 'r'){
+            return 0;
+        }else if(c == 'g'){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+    
+    private int calculateMaxArea(int[] left, int[] right, int[][] top, int[][] bottom, int col, int row){
+        double ans = 0;
+        
+        for(int i =0; i< col; i++){
+            for(int t=0; t<3;t++){
+                for(int b=0; b<3; b++){
+                    int z = 3-t-b;
+                    if(t!=b && top[t][i]!=100 && bottom[b][i]!= -1 && left[z]!=100){
+                        ans = Math.max(((1/2.0)*(bottom[b][i]-top[t][i]+1)*(i-left[z]+1)), ans);
+                    }
+                    if(t!=b && top[t][i]!=100 && bottom[b][i]!= -1 && right[z]!=-1){
+                        ans = Math.max(((1/2.0)*(bottom[b][i]-top[t][i]+1)*(right[z]-i+1)), ans);
+                    }
+                }
+                }
+            }
+        
+        return (int)Math.ceil(ans);
+    }
+}
