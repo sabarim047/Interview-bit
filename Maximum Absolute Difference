@@ -1,0 +1,18 @@
+public class Solution {
+    public int maxArr(ArrayList<Integer> A) {
+        int n=A.size();
+        int f1max=Integer.MIN_VALUE;
+        int f1min=Integer.MAX_VALUE;
+        int f2max=Integer.MIN_VALUE;
+        int f2min=Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            int f1=A.get(i)+i;
+            int f2=A.get(i)-i;
+            f1max=Math.max(f1max,f1);
+            f1min=Math.min(f1min,f1);
+            f2max=Math.max(f2max,f2);
+            f2min=Math.min(f2min,f2);
+        }
+        return Math.max((f1max-f1min),(f2max-f2min));
+    }
+}
