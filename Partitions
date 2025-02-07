@@ -1,0 +1,26 @@
+public class Solution {
+    public int solve(int A, ArrayList<Integer> B) {
+        int n=B.size();
+        int totalSum=0;
+        for(int i=0;i<n;i++){
+            totalSum+=B.get(i);  
+        }
+        if (totalSum%3!=0) {
+            return 0;
+        }
+        int targetSum=totalSum/3;
+        int currentSum=0;
+        int count=0;
+        int ways=0;
+        for(int i=0;i<n-1;i++){
+            currentSum+=B.get(i);
+            if(currentSum==2*targetSum){
+                ways+=count;
+            }
+            if(currentSum==targetSum){
+                count++;
+            }
+        }
+        return ways;
+    }
+}
